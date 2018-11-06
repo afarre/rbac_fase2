@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CHROOT='/users/advanced/foo5'
+CHROOT="/users/$2/$1"
 if [ ! -d $CHROOT ]; then
 	mkdir $CHROOT
 fi
@@ -20,3 +20,7 @@ if [ -f /lib/ld-linux.so.2 ]; then
 	cp --parents /lib/ld-linux.so.2 /$CHROOT
 fi
 
+mkdir --parent "$CHROOT/home/$1"
+clear
+cd
+echo "Connected to RBAC server! Welcome `whoami`"
