@@ -120,4 +120,4 @@ Subsystem	sftp	/usr/lib/openssh/sftp-server
 #	AllowTcpForwarding no
 #	PermitTTY no
 #	ForceCommand cvs server
-ForceCommand /home/alex/rbac/bin/sshLogin.sh
+ForceCommand /bin/sshLogin.sh
