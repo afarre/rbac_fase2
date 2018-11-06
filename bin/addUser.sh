@@ -1,6 +1,9 @@
 #!/bin/bash
-echo group $2
-echo name $1
-sudo adduser --home /users/$2/$1/home/$1 $1
-sudo usermod -g $2 $1
+echo "Insert user name:"
+read userName
+echo "Insert user group:"
+read userGroup
+sudo adduser --home /users/$userGroup/$userName/home/$userName $userName
+sudo usermod -g $userGroup $userName
+sudo chown $userName:$userName /users/$userGroup/$userName
 #sudo chroot /users/$2/$1 /bin/bash
