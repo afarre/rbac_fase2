@@ -113,7 +113,6 @@ AcceptEnv LANG LC_*
 
 # override default of no subsystems
 Subsystem	sftp	/usr/lib/openssh/sftp-server
-#Subsystem	sftp internal-sftp
 
 # Example of overriding settings on a per-user basis
 #Match User anoncvs
@@ -121,17 +120,4 @@ Subsystem	sftp	/usr/lib/openssh/sftp-server
 #	AllowTcpForwarding no
 #	PermitTTY no
 #	ForceCommand cvs server
-ForceCommand /home/angel/rbac/bin/sshLogin.sh
-
-
-#Match User foo4
-	#ChrootDirectory /users/advanced/foo4/home/foo4
-	#ForceCommand internal-sftp
-	#AllowTCPForwarding no
-	#X11Forwarding no
-
-#packet_write_wait: Connection to 172.20.30.79 port 22: Broken pipe
-#Match Group visitor
-#	ChrootDirectory /users/visitor/
-#	ForceCommand /bin/visitor.sh
-
+ForceCommand /home/alex/rbac/bin/sshLogin.sh
