@@ -20,7 +20,6 @@ if [ -f /lib/ld-linux.so.2 ]; then
 	cp --parents /lib/ld-linux.so.2 /$CHROOT
 fi
 
-mkdir --parent "$CHROOT/home/$1"
 clear
 cd
 echo "Connected to RBAC server! Welcome `whoami`"
