@@ -15,19 +15,19 @@ else
 	else
 		if groups $userName | grep &>/dev/null '\bbasic\b'; then
 			if [ ! -d "users/basic/$userName/home" ]; then
-				/bash commands.sh /bin/{ls,rm,bash,nano,mkdir,gcc,kill} /usr/bin/{vim,touch} # "cd" "ll" "make"
+				bash commands.sh /bin/{ls,rm,bash,nano,mkdir,gcc,kill} /usr/bin/{vim,touch} # "cd" "ll" "make"
 			fi
 			#/bin/bash enviroment "basic"
 		else
 			if groups $userName | grep &>/dev/null '\bdatastore\b'; then
 				if [ ! -d "users/datastore/$userName/home" ]; then
-					/bin/bash commands.sh
+					bash commands.sh
 				fi
 				#/bin/bash enviroment "datastore"
 			else
 				if groups $userName | grep &>/dev/null '\bmedium\b'; then
 					if [ ! -d "users/medium/$userName/home" ]; then
-						/bash commands.sh /bin/{ls,rm,bash,nano,mkdir,ln,ps,grep,sed} /usr/bin/{vim,touch,java,python,valgrind,awk} # "cd" "ll" "make" "pip" "pip3"
+						bash commands.sh /bin/{ls,rm,bash,nano,mkdir,ln,ps,grep,sed} /usr/bin/{vim,touch,java,python,valgrind,awk} # "cd" "ll" "make" "pip" "pip3"
 					fi
 					#/bin/bash enviroment "medium"
 				fi
