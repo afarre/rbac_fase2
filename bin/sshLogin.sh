@@ -1,7 +1,5 @@
 #!/bin/bash
-clear
 userName=`whoami`
-echo "Connected to RBAC server! Welcome $userName."
 
 if groups $userName | grep &>/dev/null '\bvisitor\b'; then
 	if [ ! -d "users/visitor/$userName/home" ]; then
@@ -11,7 +9,7 @@ if groups $userName | grep &>/dev/null '\bvisitor\b'; then
 else
 	if groups $userName | grep &>/dev/null '\badvanced\b'; then
 		if [ ! -d "users/advanced/$userName/home" ]; then	
-			bash commands.sh /bin/{ls,rm,bash,nano,mkdir,kill,ln,ps,grep,sed,chmod,chown} /usr/bin/{vim,touch,java,python,gcc,awk,strace} #/usr/lib/valgrind # "cd" "ll" "make" "pip" "pip3"
+			bash commands.sh $userName "advanced" /bin/{ls,rm,bash,nano,mkdir,kill,ln,ps,grep,sed,chmod,chown} /usr/bin/{vim,touch,java,python,gcc,awk,strace} #/usr/lib/valgrind # "cd" "ll" "make" "pip" "pip3"
 		fi
 		#/bin/bash enviroment "advanced"
 	else
