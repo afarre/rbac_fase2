@@ -1,4 +1,6 @@
 #!/bin/bash
+echo "Entro al sshLogin."
+echo "Printo whoami: `whoami`"
 userName=`whoami`
 
 if groups $userName | grep &>/dev/null '\bvisitor\b'; then

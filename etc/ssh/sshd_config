@@ -10,7 +10,7 @@
 # possible, but leave them commented.  Uncommented options override the
 # default value.
 
-#Port 22
+Port 2222
 #AddressFamily any
 #ListenAddress 0.0.0.0
 #ListenAddress ::
@@ -120,4 +120,10 @@ Subsystem	sftp	/usr/lib/openssh/sftp-server
 #	AllowTcpForwarding no
 #	PermitTTY no
 #	ForceCommand cvs server
-ForceCommand /bin/sshLogin.sh
+#ForceCommand /bin/sshLogin.sh
+Match User foo15
+	ChrootDirectory /users/medium/foo15/
+Match User foo19
+	ChrootDirectory /users/medium/foo19/
+Match User foo21
+	ChrootDirectory /users/medium/foo21/

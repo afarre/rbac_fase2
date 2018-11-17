@@ -1,5 +1,7 @@
 #!/bin/bash
-
+echo "Entro a commands"
+echo "Valor de 1: $1"
+echo "Valor de 2: $2"
 CHROOT="/users/$2/$1"
 if [ ! -d $CHROOT ]; then
 	mkdir $CHROOT
@@ -20,6 +22,6 @@ if [ -f /lib/ld-linux.so.2 ]; then
 	cp --parents /lib/ld-linux.so.2 /$CHROOT
 fi
 
-#clear
+clear
 cd
 echo "Connected to RBAC server! Welcome `whoami`"
