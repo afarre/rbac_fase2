@@ -1,8 +1,8 @@
 #!/bin/bash
-echo "Entro a commands"
-echo "Valor de 1: $1"
-echo "Valor de 2: $2"
-CHROOT="/users/$2/$1"
+echo "Entro a commands" >> /tmp/aux
+echo "Valor de 1: $1" >> /tmp/aux
+echo "Valor de 2: $2" >> /tmp/aux
+CHROOT="/users/$2/$1" >> /tmp/aux
 if [ ! -d $CHROOT ]; then
 	mkdir $CHROOT
 fi

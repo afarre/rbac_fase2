@@ -121,9 +121,18 @@ Subsystem	sftp	/usr/lib/openssh/sftp-server
 #	PermitTTY no
 #	ForceCommand cvs server
 #ForceCommand /bin/sshLogin.sh
-Match User foo15
-	ChrootDirectory /users/medium/foo15/
-Match User foo19
-	ChrootDirectory /users/medium/foo19/
-Match User foo21
-	ChrootDirectory /users/medium/foo21/
+
+Match Group medium
+	ChrootDirectory /users/medium/%u/
+
+Match Group basic
+	ChrootDirectory /users/basic/%u/
+
+Match Group advanced
+	ChrootDirectory /users/advanced/%u/
+
+Match Group datastore
+	ChrootDirectory /users/datastore/%u/
+
+Match Group visitor
+	ChrootDirectory /users/visitor/%u/
