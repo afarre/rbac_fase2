@@ -2,14 +2,18 @@
 echo "Entro a commands" >> /tmp/aux
 echo "Valor de 1: $1" >> /tmp/aux
 echo "Valor de 2: $2" >> /tmp/aux
-CHROOT="/users/$2/$1" >> /tmp/aux
-if [ ! -d $CHROOT ]; then
-	mkdir $CHROOT
+echo "Valor del tercer parametre: $3" >> /tmp/aux
+
+CHROOT="/users/$2/$1"
+echo "/users/$2/$1" >> /tmp/aux
+if [ ! -d "$CHROOT/home/$1" ]; then
+	mkdir "$CHROOT/home/$1"
 fi
 
 for i in $( ldd $* | grep -v dynamic | cut -d " " -f 3 | sed 's/://' | sort | uniq )
 	do
-		cp --parents $i $CHROOT
+		echo $i >> /tmp/aux
+		cp -v --parents $i $CHROOT
 	done
 
 #ARCH amd64

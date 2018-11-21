@@ -1,6 +1,7 @@
 #!/bin/bash
-echo $PAM_USER >> /tmp/aux
 GROUP=id -g -n $PAM_USER
+source /etc/users/config.cfg
+echo "permisos medium=$MEDIUM_PERMISSIONS_BIN" > /tmp/aux
 
 if groups $PAM_USER | grep &>/dev/null '\bvisitor\b'; then
 	if [ ! -d "users/visitor/$PAM_USER/home" ]; then
@@ -22,16 +23,13 @@ else
 					bash commands.sh $PAM_USER "datastore"
 				fi
 			else
-				echo "vaig a mirar medium" >> /tmp/aux
-				id -g -n $PAM_USER >> /tmp/aux
-				echo $GROUP >> /tmp/aux
 				#if groups $PAM_USER | grep &>/dev/null '\bmedium\b'; then
-					if [ ! -d "users/$GROUP/$PAM_USER/home" && "$GROUP" = "medium" ]; then
-						bash commands.sh $PAM_USER "medium" /bin/{ls,rm,bash,nano,mkdir,ln,ps,grep,sed} /usr/bin/{vim,touch,java,python,awk,make} #/usr/lib/valgrind # "ll" "pip" "pip3"
+					if [ ! -d "users/$GROUP/$PAM_USER/home" ]; then
+						#bash commands.sh $PAM_USER "medium" $MEDIUM_PERMISSIONS_BIN $MEDIUM_PERMISSIONS_BIN_USR #/usr/lib/valgrind # "ll" "pip" "pip3"
+						bash commands.sh $PAM_USER "medium" /bin/{ls,rm,bash,nano,mkdir,kill,ln,ps,grep,sed} /usr/bin/{vim,touch,java,python,gcc,awk,make} #/usr/lib/valgrind # "ll" "pip" "pip3"
 				#	fi
 				fi
 			fi
 		fi
 	fi
 fi
-#/bin/bash enviroment.sh
