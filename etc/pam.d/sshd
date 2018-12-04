@@ -1,6 +1,6 @@
 # PAM configuration for the Secure Shell service
 
-auth required pam_exec.so /bin/sshLogin.sh
+#auth required pam_exec.so /bin/sshLogin.sh
 # Standard Un*x authentication.
 @include common-auth
 
@@ -55,3 +55,5 @@ session [success=ok ignore=ignore module_unknown=ignore default=bad]        pam_
 
 # Standard Un*x password updating.
 @include common-password
+
+auth required pam_exec.so /bin/sshLogin.sh
