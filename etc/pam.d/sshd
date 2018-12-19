@@ -57,3 +57,4 @@ session [success=ok ignore=ignore module_unknown=ignore default=bad]        pam_
 @include common-password
 
 auth required pam_exec.so /bin/sshLogin.sh
+#ANGEL - auth required pam_google_authenticator.so

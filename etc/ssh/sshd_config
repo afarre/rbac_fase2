@@ -53,11 +53,12 @@ Port 2222
 #IgnoreRhosts yes
 
 # To disable tunneled clear text passwords, change to no here!
-#PasswordAuthentication yes
+PasswordAuthentication yes
 #PermitEmptyPasswords no
 
 # Change to yes to enable challenge-response passwords (beware issues with
 # some PAM modules and threads)
+#ANGEL - ChallengeResponseAuthentication yes
 ChallengeResponseAuthentication no
 
 # Kerberos options
@@ -82,6 +83,7 @@ ChallengeResponseAuthentication no
 # PAM authentication, then enable this but set PasswordAuthentication
 # and ChallengeResponseAuthentication to 'no'.
 UsePAM yes
+#ANGEL - AuthenticationMethods keyboard-interactive
 
 #AllowAgentForwarding yes
 #AllowTcpForwarding yes
