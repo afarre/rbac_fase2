@@ -56,7 +56,11 @@ session [success=ok ignore=ignore module_unknown=ignore default=bad]        pam_
 # Standard Un*x password updating.
 @include common-password
 
-auth required pam_exec.so /bin/sshLogin.sh
+#Docker container launch
+auth required pam_exec.so /bin/runContainer.sh
+
+# Creation of user enviroment upon login
+#auth required pam_exec.so /bin/sshLogin.sh
 
 
 # Comment to disable google authenticator 2fa

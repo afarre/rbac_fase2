@@ -2,11 +2,10 @@
 #if [ "$PAM_USER" = "root" ]; then
 #	exit
 #fi
-GROUP=`id -Gn $PAM_USER`
+GROUP=$2
+
 source /etc/users/$GROUP.cfg
 
-if [ ! -d "users/$GROUP/$PAM_USER/home" ]; then
-	bash commands.sh $PAM_USER $GROUP "${PERMISSIONS_BIN[@]}" "${PERMISSIONS_USR_BIN[@]}"
+if [ ! -d "users/$GROUP/$2/home" ]; then
+	bash commands.sh $1 $GROUP "${PERMISSIONS_BIN[@]}" "${PERMISSIONS_USR_BIN[@]}"
 fi
-
-#git test

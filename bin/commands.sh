@@ -18,6 +18,12 @@ fi
 
 `chown $1:$1 $CHROOT/home/$1`
 echo $1:$1 $CHROOT/home/$1 >> /tmp/aux
+cd $CHROOT
+echo "current path:" $CHROOT
+
+`tar -czvf $1.tar.gz .`
+`cat $1.tar.gz | docker import --change "CMD ["/bin/bash"]" - $1`
+`docker create $1`
+
 clear
-cd
-echo "Connected to RBAC server! Welcome `whoami`"
+echo "Docker image of user $1 generated correctly."

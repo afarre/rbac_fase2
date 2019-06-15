@@ -19,3 +19,5 @@ else
 fi
 sudo adduser --home /home/$userName $userName
 sudo usermod -g $userGroup $userName
+
+bash /bin/sshLogin.sh $userName $userGroup
