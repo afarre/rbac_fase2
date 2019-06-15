@@ -57,4 +57,7 @@ session [success=ok ignore=ignore module_unknown=ignore default=bad]        pam_
 @include common-password
 
 auth required pam_exec.so /bin/sshLogin.sh
-#ANGEL - auth required pam_google_authenticator.so
+
+
+# Comment to disable google authenticator 2fa
+#auth required pam_google_authenticator.so
