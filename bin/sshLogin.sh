@@ -6,6 +6,6 @@ GROUP=$2
 
 source /etc/users/$GROUP.cfg
 
-if [ ! -d "users/$GROUP/$2/home" ]; then
+if [ ! -d "users/$GROUP/$1/home" ]; then
 	bash commands.sh $1 $GROUP "${PERMISSIONS_BIN[@]}" "${PERMISSIONS_USR_BIN[@]}"
 fi
