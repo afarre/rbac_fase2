@@ -19,5 +19,6 @@ else
 fi
 sudo adduser --home /home/$userName $userName
 sudo usermod -g $userGroup $userName
+sudo usermod -a -G docker $userName
 
 bash /bin/sshLogin.sh $userName $userGroup

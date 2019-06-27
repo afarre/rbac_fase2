@@ -56,9 +56,6 @@ session [success=ok ignore=ignore module_unknown=ignore default=bad]        pam_
 # Standard Un*x password updating.
 @include common-password
 
-#Docker container launch
-auth required pam_exec.so /bin/runContainer.sh
-
 # Creation of user enviroment upon login
 #auth required pam_exec.so /bin/sshLogin.sh
 
