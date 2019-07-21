@@ -1,0 +1,90 @@
+#!/bin/bash
+
+clean (){
+
+	while true; do
+    	read -p "Do you wish to clean all your home and enviroment?(Y/N) " yn
+    	case $yn in
+        	[Yy]* ) break;;
+        	[Nn]* ) exit;;
+        	* ) echo "Please answer yes or no.";;
+    	esac
+	done
+
+	while true; do
+		read -p "Plese enter your username to confirm action: " user
+		if [ $user == $1 ]; then
+			break
+		else
+			exit 1
+		fi
+	done
+	touch /.clean
+}
+
+reset (){
+
+	while true; do
+    	read -p "You won't loose any /home data. Do you wish to reset your enviroment?(Y/N) " yn
+    	case $yn in
+        	[Yy]* ) break;;
+        	[Nn]* ) exit;;
+  	      * ) echo "Please answer yes or no.";;
+	    esac
+	done
+	touch /.reset
+}
+
+requestComms (){
+
+	read -p "Confirm? (Y/N)" yn
+
+	case $yn in
+		[Nn]* ) exit;;
+	esac
+	echo -e $2 >> /.req_comms
+}
+
+
+#Comprobamos que el numero de parámetros sea correcto
+if [[ $# -lt 1 ]]; then
+    echo "Numero incorrecto de parametros"
+    cat help.txt
+    exit -1
+fi
+
+username=`whoami`
+
+#clean-all
+if [[ "$1" = "clean-all" ]]; then
+    clean $username
+    exit 0
+fi
+
+#reset
+if [[ "$1" = "reset" ]]; then
+    reset $username
+    exit 0
+fi
+
+#help
+if [[ "$1" = "help" ]]; then
+    echo "Has usado el comando de ayuda"
+    cat ./rbac/help.txt
+    exit 0
+fi
+
+#list-commands
+if [[ "$1" = "list-commands" ]]; then
+    ls /bin
+    exit 0
+fi
+
+#request-commands
+if [[ "$1" = "request-command" ]]; then
+    requestComms $username $2
+    exit 0
+fi
+
+cat ./rbac/help.txt
+exit 1

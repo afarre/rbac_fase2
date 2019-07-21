@@ -1,0 +1,84 @@
+#!/bin/bash
+
+#Cron que se ejecutara cada minuto para ver si hay que limpiar las carpetas del usuario
+
+cleanUserEnv (){
+
+	echo "Cleaning all environment for user $1..."
+	sudo rm -rf /users/$2/$1/home
+	sudo mkdir -p /users/$2/$1/home/$1
+
+	sudo rm -rf /users/$2/$1/bin
+	sudo rm -rf /users/$2/$1/lib
+	sudo rm -rf /users/$2/$1/lib64
+
+	source /etc/users/$2.cfg
+	bash commands.sh $1 $2 "${PERMISSIONS_BIN[@]}" "$PERMISSIONS_USR_BIN[@]"
+
+	sudo rm /users/$2/$1/.clean
+}
+
+resetUserEnv (){
+
+	echo "Resetting environment for user $1..."
+
+	sudo rm -rf /users/$2/$1/bin
+	sudo rm -rf /users/$2/$1/lib
+	sudo rm -rf /users/$2/$1/lib64
+
+	source /etc/users/$2.cfg
+	bash commands.sh $1 $2 "${PERMISSIONS_BIN[@]}" "$PERMISSIONS_USR_BIN[@]"
+
+	sudo rm /users/$2/$1/.reset
+}
+
+mailRequestCommands (){
+	mesg=`cat ../etc/mail/mail.tpl`
+	commands=`cat /users/$2/$1/.req_comms`
+	$mesg="${mesg}\n\nCommand request by user $1, with user role $2.\nCommands requested: $commands"
+
+	echo -e $mesg | sendmail -vt
+
+	sudo rm /users/$2/$1/.req_comms
+}
+
+checkEnvUser (){
+	
+		rbac_user=$1
+		GP=$2
+
+		if [ -e /users/$GP/$rbac_user/.clean ]; then
+			cleanUserEnv $user $GP
+		fi
+
+		if [ -e /users/$GP/$rbac_user/.reset ]; then
+			resetUserEnv $user $GP
+		fi
+
+		if [ -e /users/$GP/$rbac_user/.req_comms ]; then
+			mailRequestCommands $rbac_user $GP
+		fi
+}
+
+#Comprobamos que usuarios hay para cada rol
+VISITOR_USERS=`sudo ls /users/visitor`
+BASIC_USERS=`sudo ls /users/basic`
+MEDIUM_USERS=`sudo ls /users/medium`
+ADV_USERS=`sudo ls /users/advanced`
+
+for user in $VISITOR_USERS; do
+	checkEnvUser $user visitor
+done
+
+for user in $BASIC_USERS; do
+	checkEnvUser $user basic
+done
+
+for user in $MEDIUM_USERS; do
+	checkEnvUser $user medium
+done
+
+for user in $ADV_USERS; do
+	checkEnvUser $user advanced
+done
+

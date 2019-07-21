@@ -15,10 +15,16 @@ fi
 source /etc/users/$GROUP.cfg
 echo post source >> /tmp/aux
 
-#	echo vaig a crear el entorn i permisos del usuari >> /tmp/aux
-#	bash commands.sh $1 $GROUP "${PERMISSIONS_BIN[@]}" "${PERMISSIONS_USR_BIN[@]}"
+userExists=$(docker ps -a | grep $1)
+userRunning=$(docker ps | grep $1)
 
-#if [ ! -d "/data/users/$GROUP/$1/home" ]; then	
-#	echo vaig a crear el entorn i permisos del usuari >> /tmp/aux
-#	bash commands.sh $1 $GROUP "${PERMISSIONS_BIN[@]}" "${PERMISSIONS_USR_BIN[@]}"
-#fi
+if [ -z $userExists ]; then
+	source /etc/users/$GROUP.cfg
+	docker run -dit --name $1 --memory-swap=$SWAP --memory=$FISICA --cpus=$CPUQ --cpu-quota=$CPUP -v /data/users/$GROUP/$1:/home/$1 $GROUP bash
+
+elif [ -z $userRunning ]; then
+
+	docker start $1
+fi
+
+docker exec -it --user $1 --workdir /home/$1 $1 bash
